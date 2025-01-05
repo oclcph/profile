@@ -1,0 +1,38 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    # 设置工作目录，确保 npm install 在正确的目录下执行
+    - name: Set working directory
+      run: ls
+
+    # 设置 Node.js 环境
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+
+    # 安装依赖
+    - name: Install dependencies
+      run: npm install
+
+    # 构建 Vue 3 项目
+    - name: Build Vue 3 project
+      run: npm run build
+
+    # 部署到 GitHub Pages
+    - name: Deploy to GitHub Pages
+      run: |
+        npm install --save-dev gh-pages
+        npx gh-pages -d dist
