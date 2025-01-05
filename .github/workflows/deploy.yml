@@ -27,5 +27,6 @@ jobs:
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
+        branch: gh-pages  # 部署到 gh-pages 分支
+        folder: dist      # 构建文件存放在 dist 文件夹
         github_token: ${{ secrets.GITHUB_TOKEN }}  # 使用默认的 GITHUB_TOKEN
-        publish_dir: ./dist  # 假设构建输出在 dist 目录
