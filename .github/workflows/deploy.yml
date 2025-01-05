@@ -29,8 +29,6 @@ jobs:
 
     # 部署到 GitHub Pages
     - name: Deploy to GitHub Pages
-      run: |
-        npm install --save-dev gh-pages
-        npx gh-pages -d dist
+      run: npx gh-pages -d dist
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
