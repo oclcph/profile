@@ -29,8 +29,8 @@ jobs:
     
     - name: Configure Git
       run: |
-        git config --global user.name "cph"
-        git config --global user.email "221830224@smail.nju.edu.cn"
+        git config --global user.name "oclcph"
+        git config --global user.email "482263406@qq.com"
     
     - name: Debug Info
       run: |
