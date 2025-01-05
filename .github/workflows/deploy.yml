@@ -27,6 +27,11 @@ jobs:
     - name: Build Vue 3 project
       run: npm run build
     
+    - name: Configure Git
+      run: |
+        git config --global user.name "cph"
+        git config --global user.email "221830224@smail.nju.edu.cn"
+    
     - name: Debug Info
       run: |
         echo "Current directory: $(pwd)"
