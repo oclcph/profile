@@ -15,7 +15,7 @@ jobs:
 
     # 设置工作目录，确保 npm install 在正确的目录下执行
     - name: Set working directory
-      run: cd profile
+      run: cd profile/oclcph.github.io/profile
 
     # 设置 Node.js 环境
     - name: Set up Node.js
