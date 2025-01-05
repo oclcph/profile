@@ -31,4 +31,4 @@ jobs:
     - name: Deploy to GitHub Pages
       run: npx gh-pages -d dist
       env:
-        GH_TOKEN: ${{ secrets.PAGE_TOKEN }}  # 使用自定义的 PAGE_TOKEN
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
