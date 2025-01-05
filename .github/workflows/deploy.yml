@@ -26,7 +26,12 @@ jobs:
     # 构建 Vue 3 项目
     - name: Build Vue 3 project
       run: npm run build
-
+    
+    - name: Debug Info
+      run: |
+        echo "Current directory: $(pwd)"
+        echo "Git config:"
+        git config --list
     # 部署到 GitHub Pages
     - name: Deploy to GitHub Pages
       run: npx gh-pages -d dist
