@@ -27,6 +27,7 @@ jobs:
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
-        branch: gh-pages  # 部署到 gh-pages 分支
+        publish_branch: gh-pages  # 部署到 gh-pages 分支
+        publish_path: profile  # 部署到仓库的 profile 目录
         github_token: ${{ secrets.GITHUB_TOKEN }}  # 使用默认的 GITHUB_TOKEN
-        publish_dir: ./dist/profile  # 发布构建输出目录
+        publish_dir: ./dist  # 发布构建输出目录
