@@ -15,7 +15,7 @@ const renderedMarkdown = ref<string>('');
 
 // 使用 watchEffect 来观察 content 属性的变化
 watchEffect(() => {
-  renderedMarkdown.value = marked(props.content);  // 渲染 Markdown 为 HTML
+  renderedMarkdown.value = marked(props.content) as string;  // 渲染 Markdown 为 HTML
   console.log(renderedMarkdown.value);
 });
 </script>
