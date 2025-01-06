@@ -1,17 +1,22 @@
 <template>
-  <div class="flex items-center justify-center min-h-screen bg-gray-100">
-    <h1 class="text-4xl font-bold text-blue-600">
-      Welcome to Vite + Vue 3 + TypeScript + Tailwind CSS!
-    </h1>
+  <div id="app">
+    <Header />  <!-- 引入 Header 组件 -->
+    <router-view />  <!-- Vue Router 渲染的页面 -->
   </div>
 </template>
 
 <script lang="ts">
-export default {
+import { defineComponent } from 'vue';
+import Header from './components/Header.vue';  // 引入 Header 组件
+
+export default defineComponent({
   name: 'App',
-}
+  components: {
+    Header,  // 注册 Header 组件
+  },
+});
 </script>
 
-<style scoped>
-/* scoped styles */
+<style>
+/* 如果有需要在全局应用的样式可以放这里 */
 </style>
