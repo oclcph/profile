@@ -1,5 +1,4 @@
-// src/router/index.ts
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 
 const routes = [
@@ -12,12 +11,13 @@ const routes = [
         path: '/about',
         name: 'About',
         component: () => import('../views/About.vue')
-    }
+    },
+    // 添加更多路由...
 ]
 
 const router = createRouter({
-    history: createWebHistory(import.meta.env.BASE_URL),
-    routes
+    history: createWebHashHistory(), // 使用 Hash 模式
+    routes,
 })
 
 export default router
