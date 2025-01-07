@@ -1,8 +1,10 @@
 <template>
   <div>
     <!-- 背景图片区域 -->
-    <div class="background-image"></div>
-
+    <div
+      class="background-image"
+      :style="{ backgroundImage: `url(${currentBackground})` }"
+    ></div>
     <!-- 固定标题 -->
     <header>
       <h1>文章标题</h1>
@@ -19,8 +21,39 @@
 </template>
 
 <script lang="ts">
+import { ref, onMounted } from 'vue';
+
+const fadeClass = ref('');
+
 export default {
   name: 'BackgroundWithSticky',
+  setup() {
+    const backgrounds = [
+      '/profile/background/bg1.jpg',
+      '/profile/background/bg2.jpg',
+      '/profile/background/bg3.jpg',
+      '/profile/background/bg4.jpg',
+      '/profile/background/bg5.jpg',
+    ]; // 替换为你的背景图片路径
+    const currentBackground = ref(backgrounds[0]);
+
+    const changeBackground = () => {
+      fadeClass.value = 'fade-out'; // 开始淡出
+      setTimeout(() => {
+        const randomIndex = Math.floor(Math.random() * backgrounds.length);
+        currentBackground.value = backgrounds[randomIndex]; // 切换图片
+        fadeClass.value = ''; // 恢复淡入
+      }, 1000); // 与 CSS 过渡时间匹配
+    };
+
+    onMounted(() => {
+      setInterval(changeBackground, 8000); // 每 5 秒切换一次
+    });
+
+    return {
+      currentBackground,
+    };
+  },
 };
 </script>
 
@@ -30,21 +63,24 @@ export default {
   position: relative;
   width: 100%;
   height: 60vh; /* 背景容器高度 */
-  background-image: url('../assets/bg1.jpg'); /* 替换为你的图片路径 */
   background-size: 110%; /* 初始背景图片大小 */
   background-position: top; /* 居中显示 */
   background-repeat: no-repeat;
   z-index: 1; /* 确保背景在底层 */
   animation: zoomInEffect 8s infinite alternate ease-in-out; /* 应用放大效果 */
+  transition:
+    background-image 1s ease-in-out,
+    opacity 1s ease-in-out; /* 增加透明度过渡 */
+  opacity: 0.8; /* 设置透明度，0完全透明，1完全不透明 */
 }
 
 /* 定义背景图片放大动画 */
 @keyframes zoomInEffect {
   0% {
-    background-size: 110%; /* 初始背景大小 */
+    background-size: 110%; /* 缩小至初始状态 */
   }
   100% {
-    background-size: 125%; /* 放大后的背景大小 */
+    background-size: 125%; /* 完全放大 */
   }
 }
 
