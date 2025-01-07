@@ -1,18 +1,14 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import About from '../views/About.vue'
-import MarkDownResolver from "../components/MarkDownResolver.vue";
-
-const articles = ['AI.md']
+import Articles from '../views/Articles.vue'
+import MarkDownViewer from "../views/MarkDownViewer.vue";
 
 const routes = [
     { path: '/', component: Home },
     { path: '/about', component: About },
-    ...articles.map(article => ({
-        path: `/articles/${article.replace('.md', '')}`, // 生成路由路径
-        component: MarkDownResolver,
-        props: { contentPath: article }, // 传递文件名
-    })),
+    { path: '/articles', component: Articles },
+    { path: '/articles/:file', name: 'article', component: MarkDownViewer, props: true}
 ];
 
 
