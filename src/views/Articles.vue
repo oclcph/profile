@@ -6,9 +6,6 @@
 
 <script setup lang="ts">
 import MarkDownFinder from '../components/MarkDownFinder.vue';
-import { useRouter } from 'vue-router';
-
-const router = useRouter();
 </script>
 
 <style>
