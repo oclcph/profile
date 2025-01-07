@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <Header />  <!-- 引入 Header 组件 -->
+    <Header />
+    <!-- 引入 Header 组件 -->
+    <Background />
     <main class="container mx-auto p-4">
       <!-- 路由视图，根据路由显示不同页面 -->
       <router-view />
@@ -10,12 +12,14 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import Header from './components/Header.vue';  // 引入 Header 组件
+import Header from './components/Header.vue'; // 引入 Header 组件
+import Background from './components/Background.vue';
 
 export default defineComponent({
   name: 'App',
   components: {
-    Header,  // 注册 Header 组件
+    Header, // 注册 Header 组件
+    Background,
   },
 });
 </script>
@@ -29,21 +33,5 @@ export default defineComponent({
 
 body {
   margin: 0;
-}
-.fixedFooter {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 30px;
-  padding: 10px; /* 示例内边距 */
-}
-.relativeFooter {
-  position: relative;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 30px;
-  padding: 10px; /* 示例内边距 */
 }
 </style>
