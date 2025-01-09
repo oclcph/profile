@@ -1,7 +1,11 @@
 <template>
   <div>
     <ul>
-      <li v-for="(file, index) in mdFiles" :key="index" @click="navigateToArticle(file)">
+      <li
+        v-for="(file, index) in fileList"
+        :key="index"
+        @click="navigateToArticle(file)"
+      >
         {{ file }}
       </li>
     </ul>
@@ -9,10 +13,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
-const mdFiles = ref<string[]>(['AI.md', 'AnotherArticle.md']); // 假设这些是你的文件列表
+const fileList = ref<string[]>([]);
+
+onMounted(async () => {
+  const response = await fetch('/profile/fileList.json');
+  fileList.value = (await response.json()).files;
+  console.log(fileList.value);
+});
+
 const router = useRouter();
 
 const navigateToArticle = (file: string) => {

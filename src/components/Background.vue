@@ -5,18 +5,6 @@
       class="background-image"
       :style="{ backgroundImage: `url(${currentBackground})` }"
     ></div>
-    <!-- 固定标题 -->
-    <header>
-      <h1>文章标题</h1>
-    </header>
-
-    <!-- 正文内容 -->
-    <main class="content">
-      <p>这里是正文内容。</p>
-      <p>滚动时背景会逐渐被正文遮挡。</p>
-      <p>这是额外内容，用来模拟页面滚动。</p>
-      <p>继续滚动，直到背景被完全遮挡。</p>
-    </main>
   </div>
 </template>
 
@@ -34,7 +22,7 @@ export default {
       '/profile/background/bg3.jpg',
       '/profile/background/bg4.jpg',
       '/profile/background/bg5.jpg',
-    ]; // 替换为你的背景图片路径
+    ];
     const currentBackground = ref(backgrounds[0]);
 
     const changeBackground = () => {
