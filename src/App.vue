@@ -3,6 +3,7 @@
     <Header />
     <!-- 引入 Header 组件 -->
     <Background />
+    <Breadcrumb />
     <main class="container mx-auto p-4">
       <!-- 路由视图，根据路由显示不同页面 -->
       <router-view />
@@ -14,12 +15,14 @@
 import { defineComponent } from 'vue';
 import Header from './components/Header.vue'; // 引入 Header 组件
 import Background from './components/Background.vue';
+import Breadcrumb from './components/Breadcrumb.vue';
 
 export default defineComponent({
   name: 'App',
   components: {
     Header, // 注册 Header 组件
     Background,
+    Breadcrumb,
   },
 });
 </script>

@@ -15,12 +15,13 @@ const props = defineProps<{
 }>();
 
 const fetchContent = async () => {
-  const response = await fetch(`/profile/${props.file}`);
+  const response = await fetch(`/profile/articles/${props.file}`);
+  console.log(props.file);
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
   markdownContent.value = await response.text();
-  console.log("Markdown content:", markdownContent.value); // 调试输出
+  console.log('Markdown content:', markdownContent.value); // 调试输出
 };
 
 onMounted(async () => {

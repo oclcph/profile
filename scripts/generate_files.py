@@ -22,6 +22,7 @@ def generate_md_file_list(root_dir, output_file):
 
 if __name__ == "__main__":
     public_dir = os.path.join(".", "public")  # 自动处理分隔符
+    articles_dir = os.path.join(public_dir, "articles")  # 文章目录
     output_file = os.path.join(public_dir, "fileList.json")  # 输出文件路径
 
-    generate_md_file_list(public_dir, output_file)
+    generate_md_file_list(articles_dir, output_file)
