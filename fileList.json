@@ -1,6 +1,18 @@
 {
   "files": [
-    "AI.md",
-    "Review.md"
+    {
+      "path": "AI.md",
+      "title": "复习",
+      "abstract": "机器学习知识点整理，非常不全",
+      "category": "机器学习",
+      "modified_time": "2025-01-11 16:24:33"
+    },
+    {
+      "path": "Review.md",
+      "title": "复习",
+      "abstract": "计组知识点整理，包含习题",
+      "category": "计算机组成原理",
+      "modified_time": "2025-01-11 16:24:33"
+    }
   ]
 }

@@ -1,3 +1,9 @@
+---
+title: 复习
+abstract: 计组知识点整理，包含习题
+category: 计算机组成原理
+---
+
 # Review
 
 ## CPU
