@@ -11,6 +11,15 @@
     <h2 class="mt-4 text-xl font-semibold">{{ name }}</h2>
     <p class="mt-2 text-gray-600 text-center">{{ description }}</p>
 
+    <a
+      href="https://github.com/oclcph/profile"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="flex items-center mt-2 text-gray-600 hover:text-gray-800"
+    >
+      <i class="fab fa-github"></i>
+      <!-- Font Awesome GitHub 图标 -->
+    </a>
     <!-- Header 内容竖着排列 -->
     <div class="mt-4 flex flex-col space-y-2">
       <router-link to="/" class="link">首页</router-link>
