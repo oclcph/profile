@@ -35,8 +35,6 @@ const breadcrumbs = computed(() => {
     // 使用 router.resolve 获取当前路由的解析结果
     const route = router.resolve(path);
     // 查找路由记录中对应的 meta.title，优先使用该值
-    console.log(route);
-    console.log(router);
     const title =
       route.matched?.[0]?.meta?.title || router.currentRoute.value.meta.title;
     return {

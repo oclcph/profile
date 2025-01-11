@@ -8,14 +8,19 @@
       @click="openModal"
     />
 
-    <h2 class="mt-4 text-xl font-semibold">{{ name }}</h2>
+    <h2
+      class="mt-4 text-xl font-semibold cursor-pointer"
+      @click="routerToAbout"
+    >
+      {{ name }}
+    </h2>
     <p class="mt-2 text-gray-600 text-center">{{ description }}</p>
 
     <a
       href="https://github.com/oclcph/profile"
       target="_blank"
       rel="noopener noreferrer"
-      class="flex items-center mt-2 text-gray-600 hover:text-gray-800"
+      class="flex items-center mt-4 text-gray-600 hover:text-gray-800"
     >
       <i class="fab fa-github"></i>
       <!-- Font Awesome GitHub 图标 -->
@@ -45,11 +50,13 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 const avatarUrl = './cl.jpg'; // 头像路径
 const name = 'ocphl';
 const description = '相关信息描述';
 const isModalOpen = ref(false);
+const router = useRouter();
 
 const openModal = () => {
   isModalOpen.value = true;
@@ -57,6 +64,10 @@ const openModal = () => {
 
 const closeModal = () => {
   isModalOpen.value = false;
+};
+
+const routerToAbout = () => {
+  router.push('/about');
 };
 </script>
 

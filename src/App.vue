@@ -4,9 +4,17 @@
     <!-- 引入 Header 组件 -->
     <Background />
     <Breadcrumb />
-    <main class="container mx-auto p-4">
-      <!-- 路由视图，根据路由显示不同页面 -->
-      <router-view />
+    <main class="container mx-auto p-4 flex">
+      <!-- 主内容区域 -->
+      <div class="flex-1">
+        <!-- 路由视图，根据路由显示不同页面 -->
+        <router-view />
+      </div>
+
+      <!-- 右侧的 Profile 组件 -->
+      <div class="w-64 ml-4">
+        <Profile />
+      </div>
     </main>
   </div>
 </template>
@@ -16,6 +24,7 @@ import { defineComponent } from 'vue';
 import Header from './components/Header.vue'; // 引入 Header 组件
 import Background from './components/Background.vue';
 import Breadcrumb from './components/Breadcrumb.vue';
+import Profile from './components/Profile.vue';
 
 export default defineComponent({
   name: 'App',
@@ -23,6 +32,7 @@ export default defineComponent({
     Header, // 注册 Header 组件
     Background,
     Breadcrumb,
+    Profile,
   },
 });
 </script>

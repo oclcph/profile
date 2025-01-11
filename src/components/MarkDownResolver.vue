@@ -88,7 +88,6 @@ renderer.text = (text) => {
 };
 
 renderer.code = ({ text, lang, escaped }) => {
-  console.log(text);
   // 处理代码块
   if (escaped) {
     return text;
@@ -102,8 +101,9 @@ renderer.code = ({ text, lang, escaped }) => {
 
 // 使用 watchEffect 来观察 content 属性的变化
 watchEffect(() => {
-  renderedMarkdown.value = marked(props.content, { renderer }) as string; // 渲染 Markdown 为 HTML
-  // console.log(renderedMarkdown.value);
+  const cleanedContent = props.content.replace(/^---\s*\n(.*?)\n---\s*\n/s, '');
+  renderedMarkdown.value = marked(cleanedContent, { renderer }) as string; // 渲染 Markdown 为 HTML
+  // console.log(renderedMarkdown.value, cleanedContent);
   emit('load-complete');
 });
 </script>
