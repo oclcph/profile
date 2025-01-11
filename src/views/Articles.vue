@@ -5,14 +5,27 @@
       ——文章列表——
     </h2>
     <!-- MarkDownFinder 组件 -->
-    <MarkDownFinder />
+    <div class="flex space-x-4">
+      <!-- MarkDownFinder 组件 -->
+      <MarkDownFinder class="flex-1" @load-complete="onLoadComplete" />
+      <!-- Profile 组件 -->
+      <Profile v-if="isMarkDownLoaded" class="w-64" />
+      <!-- 设置固定宽度 -->
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
 import MarkDownFinder from '../components/MarkDownFinder.vue';
-</script>
+import Profile from '../components/Profile.vue';
 
-<style>
-/* 添加样式（可选） */
-</style>
+// 用于跟踪 MarkDownFinder 是否加载完成
+const isMarkDownLoaded = ref(false);
+
+// 当 MarkDownFinder 加载完成时调用的函数
+const onLoadComplete = () => {
+  console.log('load complete');
+  isMarkDownLoaded.value = true;
+};
+</script>

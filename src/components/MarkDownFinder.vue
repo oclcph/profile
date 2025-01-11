@@ -17,11 +17,13 @@ import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
 const fileList = ref<string[]>([]);
+const emit = defineEmits(['load-complete']);
 
 onMounted(async () => {
   const response = await fetch('/profile/fileList.json');
   fileList.value = (await response.json()).files;
   console.log(fileList.value);
+  emit('load-complete');
 });
 
 const router = useRouter();

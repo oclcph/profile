@@ -17,8 +17,8 @@ const props = defineProps<{
 }>();
 
 const renderedMarkdown = ref<string>('');
-
 const renderer = new marked.Renderer();
+const emit = defineEmits(['load-complete']);
 
 // 处理代码
 function processCode(text: string): string {
@@ -104,6 +104,7 @@ renderer.code = ({ text, lang, escaped }) => {
 watchEffect(() => {
   renderedMarkdown.value = marked(props.content, { renderer }) as string; // 渲染 Markdown 为 HTML
   // console.log(renderedMarkdown.value);
+  emit('load-complete');
 });
 </script>
 
