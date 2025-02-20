@@ -8,33 +8,44 @@
       <!-- 主内容区域 -->
       <div class="flex-1">
         <!-- 路由视图，根据路由显示不同页面 -->
-        <router-view />
+        <router-view v-slot="{ Component }">
+          <component :is="Component" @update-headers="updateHeaders" />
+        </router-view>
       </div>
 
       <!-- 右侧的 Profile 组件 -->
       <aside class="w-64 ml-4">
-        <Profile />
+        <Profile :headers="headers" :showTOC="showTOC" />
       </aside>
     </main>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script setup lang="ts">
 import Header from './components/Header.vue'; // 引入 Header 组件
 import Background from './components/Background.vue';
 import Breadcrumb from './components/Breadcrumb.vue';
 import Profile from './components/Profile.vue';
+import { ref, watch } from 'vue';
+import { useRoute } from 'vue-router';
 
-export default defineComponent({
-  name: 'App',
-  components: {
-    Header, // 注册 Header 组件
-    Background,
-    Breadcrumb,
-    Profile,
+const headers = ref<{ id: string; title: string; level: number }[]>([]);
+
+const updateHeaders = (
+  newHeaders: { id: string; title: string; level: number }[]
+) => {
+  headers.value = newHeaders;
+};
+const showTOC = ref(false);
+const route = useRoute();
+
+watch(
+  route,
+  (newRoute) => {
+    showTOC.value = newRoute.path.startsWith('/articles/');
   },
-});
+  { immediate: true }
+);
 </script>
 
 <style>

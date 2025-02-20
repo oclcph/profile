@@ -1,21 +1,6 @@
 <template>
-  <div class="container">
-    <div class="toc-container">
-      <ul class="toc">
-        <li
-          v-for="header in headers"
-          :key="header.id"
-          :style="{ marginLeft: `${header.level - 1}em` }"
-          @click="scrollToSection(header.id)"
-        >
-          {{ header.title }}
-        </li>
-      </ul>
-    </div>
-
-    <div class="markdown-content">
-      <div v-html="renderedMarkdown"></div>
-    </div>
+  <div class="markdown-content">
+    <div v-html="renderedMarkdown"></div>
   </div>
 </template>
 
@@ -33,7 +18,8 @@ const props = defineProps<{
 
 const renderedMarkdown = ref<string>('');
 const renderer = new marked.Renderer();
-const emit = defineEmits(['load-complete']);
+const emit = defineEmits(['load-complete', 'update-headers']);
+
 const headers = ref<{ level: number; title: string; id: string }[]>([]);
 
 // 处理代码
@@ -178,6 +164,7 @@ function scrollToSection(id: string) {
 watchEffect(() => {
   const cleanedContent = props.content.replace(/^---\s*\n(.*?)\n---\s*\n/s, '');
   headers.value = generateClickableTableOfContents(cleanedContent);
+  emit('update-headers', headers.value);
   renderedMarkdown.value = marked(cleanedContent, { renderer }) as string; // 渲染 Markdown 为 HTML
   // console.log(renderedMarkdown.value, cleanedContent);
   emit('load-complete');

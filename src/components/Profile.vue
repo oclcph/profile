@@ -1,13 +1,12 @@
 <template>
-  <div class="flex flex-col items-center">
-    <!-- 点击头像打开大图 -->
+  <div class="flex flex-col items-center w-full">
+    <!-- 个人信息 -->
     <img
       :src="avatarUrl"
       alt="头像"
       class="avatar w-24 h-24 rounded-full border-2 border-gray-300 cursor-pointer"
       @click="openModal"
     />
-
     <h2
       class="mt-4 text-xl font-semibold cursor-pointer"
       @click="routerToAbout"
@@ -23,13 +22,39 @@
       class="flex items-center mt-4 text-gray-600 hover:text-gray-800"
     >
       <i class="fab fa-github"></i>
-      <!-- Font Awesome GitHub 图标 -->
+      <!-- GitHub 图标 -->
     </a>
-    <!-- Header 内容竖着排列 -->
+
+    <!-- 导航链接 -->
     <div class="mt-4 flex flex-col space-y-2">
       <router-link to="/" class="link">首页</router-link>
       <router-link to="/articles" class="link">文章</router-link>
       <router-link to="/about" class="link">关于</router-link>
+    </div>
+
+    <!-- 目录（TOC） -->
+    <div
+      v-if="showTOC && headers.length > 0"
+      ref="tocContainer"
+      class="w-full mt-6"
+    >
+      <div
+        :class="{ 'fixed w-64': isSticky }"
+        :style="{ top: topOffset }"
+        class="bg-white bg-opacity-60 shadow-lg p-4 border border-gray-300 rounded-lg transition-all duration-300"
+      >
+        <h2 class="text-lg font-bold mb-2">📌 目录</h2>
+        <ul class="space-y-2">
+          <li
+            v-for="header in headers"
+            :key="header.id"
+            :class="`cursor-pointer p-2 rounded-md hover:bg-gray-200 transition-all duration-200 ease-in-out ml-${header.level * 2}`"
+            @click="scrollToSection(header.id)"
+          >
+            {{ header.title }}
+          </li>
+        </ul>
+      </div>
     </div>
 
     <!-- 模态框 -->
@@ -49,7 +74,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import { useRouter } from 'vue-router';
 
 const avatarUrl = './cl.jpg'; // 头像路径
@@ -69,6 +94,48 @@ const closeModal = () => {
 const routerToAbout = () => {
   router.push('/about');
 };
+
+defineProps<{
+  headers: { id: string; title: string; level: number }[];
+  showTOC: boolean;
+}>();
+
+const tocContainer = ref<HTMLElement | null>(null);
+const isSticky = ref(false);
+let lastScrollY = window.scrollY; // 记录上一次滚动位置
+const topOffset = ref('42px'); // 记录目录的 `top` 位置
+
+const handleScroll = () => {
+  if (!tocContainer.value) return;
+
+  const { top } = tocContainer.value.getBoundingClientRect();
+  const currentScrollY = window.scrollY; // 当前滚动位置
+  const isScrollingUp = currentScrollY < lastScrollY; // 是否向上滚动
+
+  if (top <= 80) {
+    isSticky.value = true;
+    topOffset.value = isScrollingUp ? '80px' : '20px'; // 向上滚动固定在 80px，否则 0px
+    // topOffset.value = "80px"; // 向上滚动固定在 80px，否则 0px
+  } else {
+    isSticky.value = false;
+  }
+
+  lastScrollY = currentScrollY; // 更新滚动位置
+};
+
+const scrollToSection = (id: string) => {
+  const section = document.getElementById(id);
+  if (section) {
+    section.scrollIntoView({ behavior: 'smooth' });
+  }
+};
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll);
+});
 </script>
 
 <style scoped>
