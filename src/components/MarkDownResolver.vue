@@ -150,16 +150,6 @@ function generateClickableTableOfContents(
   return headers; // 返回章节信息数组
 }
 
-function scrollToSection(id: string) {
-  console.log(headers.value);
-  // id = encodeURIComponent(id)
-  const section = document.getElementById(id);
-  if (section) {
-    console.log(id);
-    section.scrollIntoView({ behavior: 'smooth' });
-  }
-}
-
 // 使用 watchEffect 来观察 content 属性的变化
 watchEffect(() => {
   const cleanedContent = props.content.replace(/^---\s*\n(.*?)\n---\s*\n/s, '');
