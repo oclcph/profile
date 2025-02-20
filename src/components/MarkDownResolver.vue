@@ -1,6 +1,21 @@
 <template>
-  <div class="markdown-content">
-    <div v-html="renderedMarkdown"></div>
+  <div class="container">
+    <div class="toc-container">
+      <ul class="toc">
+        <li
+          v-for="header in headers"
+          :key="header.id"
+          :style="{ marginLeft: `${header.level - 1}em` }"
+          @click="scrollToSection(header.id)"
+        >
+          {{ header.title }}
+        </li>
+      </ul>
+    </div>
+
+    <div class="markdown-content">
+      <div v-html="renderedMarkdown"></div>
+    </div>
   </div>
 </template>
 
@@ -19,6 +34,7 @@ const props = defineProps<{
 const renderedMarkdown = ref<string>('');
 const renderer = new marked.Renderer();
 const emit = defineEmits(['load-complete']);
+const headers = ref<{ level: number; title: string; id: string }[]>([]);
 
 // 处理代码
 function processCode(text: string): string {
@@ -29,11 +45,28 @@ function processCode(text: string): string {
   });
 }
 
+// 处理斜体
+function processItalic(text: string): string {
+  const italicRegex = /(\*([^*]+)\*|_([^_]+)_)/g; // 处理 *斜体* 和 _斜体_
+  return text.replace(italicRegex, (_, __, italicText1, italicText2) => {
+    const italicText = italicText1 || italicText2; // 获取斜体文本
+    return `<em>${italicText}</em>`;
+  });
+}
+
 // 处理段内黑体
 function processBold(text: string): string {
   const boldRegex = /\*\*(.+?)\*\*/g;
   return text.replace(boldRegex, (_, boldText) => {
-    return `<strong>${boldText}</strong>`;
+    return `<span style="font-weight: bold; color: black;">${boldText}</span>`;
+  });
+}
+
+// 处理高光
+function processHighlight(text: string): string {
+  const highlightRegex = /==(.+?)==/g; // 匹配 ==高光==
+  return text.replace(highlightRegex, (_, highlightText) => {
+    return `<mark>${highlightText}</mark>`; // 使用 <mark> 标签来高亮文本
   });
 }
 
@@ -59,25 +92,39 @@ function processBlockFormulas(content: string): string {
 }
 
 function processPara(text: string): string {
+  // 先处理块级公式
   const withBlockFormulas = processBlockFormulas(text);
   // 再处理行内公式
   const withInlineFormulas = processInlineFormulas(withBlockFormulas);
   // 在处理段内黑体
   const withBold = processBold(withInlineFormulas);
+  // 处理斜体
+  const withItalic = processItalic(withBold);
   // 处理行内代码
-  const withInlineCode = processCode(withBold);
+  const withInlineCode = processCode(withItalic);
+  // 处理高光
+  const withHighlight = processHighlight(withInlineCode);
 
-  return `<p>${withInlineCode}</p>`;
+  return `<p>${withHighlight}</p>`;
 }
 
 function processText(text: string): string {
   const withInlineFormulas = processInlineFormulas(text);
   const withBold = processBold(withInlineFormulas);
-  const withInlineCode = processCode(withBold);
-  return `${withInlineCode}`;
+  const withItalic = processItalic(withBold);
+  const withInlineCode = processCode(withItalic);
+  const withHighlight = processHighlight(withInlineCode);
+  return `${withHighlight}`;
 }
 
 // 自定义 Markdown 渲染器
+renderer.heading = ({ tokens, depth }) => {
+  const title = tokens[0].raw;
+  const highlight = processHighlight(title);
+  return `<h${depth} id=${title.toLowerCase().replace(/\s+/g, '-')}>${highlight}</h${depth}>`;
+  // return "1"
+};
+
 renderer.paragraph = (text) => {
   return processPara(text.text);
 };
@@ -99,13 +146,53 @@ renderer.code = ({ text, lang, escaped }) => {
   return `<pre><code class="hljs ${validLanguage}">${highlighted}</code></pre>`;
 };
 
+// 生成目录
+function generateClickableTableOfContents(
+  text: string
+): { level: number; title: string; id: string }[] {
+  const headerRegex = /^(#{1,6})\s+(.*)$/gm; // 匹配 Markdown 标题
+  const headers: { level: number; title: string; id: string }[] = [];
+
+  let match;
+  while ((match = headerRegex.exec(text)) !== null) {
+    const level = match[1].length; // 标题级别
+    const title = match[2].trim(); // 标题文本
+    const id = title.toLowerCase().replace(/\s+/g, '-'); // 生成 ID
+    headers.push({ level, title, id });
+  }
+
+  return headers; // 返回章节信息数组
+}
+
+function scrollToSection(id: string) {
+  console.log(headers.value);
+  // id = encodeURIComponent(id)
+  const section = document.getElementById(id);
+  if (section) {
+    console.log(id);
+    section.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
 // 使用 watchEffect 来观察 content 属性的变化
 watchEffect(() => {
   const cleanedContent = props.content.replace(/^---\s*\n(.*?)\n---\s*\n/s, '');
+  headers.value = generateClickableTableOfContents(cleanedContent);
   renderedMarkdown.value = marked(cleanedContent, { renderer }) as string; // 渲染 Markdown 为 HTML
   // console.log(renderedMarkdown.value, cleanedContent);
   emit('load-complete');
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.toc-container {
+  position: sticky; /* 使目录悬浮 */
+  top: 20px; /* 距离顶部的距离 */
+  width: 200px; /* 目录宽度 */
+  margin-right: 20px; /* 目录与内容之间的间距 */
+  background: #f9f9f9; /* 背景色 */
+  padding: 10px; /* 内边距 */
+  border: 1px solid #ddd; /* 边框 */
+  border-radius: 5px; /* 圆角 */
+}
+</style>
