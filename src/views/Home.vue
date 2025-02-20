@@ -8,6 +8,7 @@
         v-for="(file, index) in sortedFiles"
         :key="index"
         @click="navigateToArticle(file.path)"
+        class="p-4 bg-white bg-opacity-80 shadow-md cursor-pointer transition-colors duration-300 hover:bg-blue-100 hover:bg-opacity-90"
       >
         {{ file.path }}
       </li>

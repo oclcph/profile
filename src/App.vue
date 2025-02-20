@@ -1,10 +1,10 @@
 <template>
-  <div id="app">
+  <div id="app" class="flex flex-col min-h-screen bg-other-image">
     <Header />
-    <!-- 引入 Header 组件 -->
     <Background />
     <Breadcrumb />
-    <main class="container mx-auto p-4 flex">
+    <!--    <div class="wave-divider"></div>-->
+    <main class="container main-content mx-auto p-4 flex flex-1">
       <!-- 主内容区域 -->
       <div class="flex-1">
         <!-- 路由视图，根据路由显示不同页面 -->
@@ -12,9 +12,9 @@
       </div>
 
       <!-- 右侧的 Profile 组件 -->
-      <div class="w-64 ml-4">
+      <aside class="w-64 ml-4">
         <Profile />
-      </div>
+      </aside>
     </main>
   </div>
 </template>
@@ -46,5 +46,79 @@ export default defineComponent({
 
 body {
   margin: 0;
+}
+
+.flex-1 {
+  flex: 1; /* 让主内容区域自适应 */
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .flex {
+    flex-direction: column; /* 小屏幕时改变布局为列 */
+  }
+  .w-64 {
+    width: 100%; /* 右侧 Profile 在小屏幕时全宽 */
+    margin-left: 0; /* 清除左边距 */
+  }
+}
+
+.wave-divider {
+  position: relative;
+  height: 60px; /* 根据需要调整高度 */
+  overflow: hidden;
+  background: transparent; /* 背景透明 */
+}
+
+.wave-divider::before {
+  content: '';
+  position: absolute;
+  bottom: 0; /* 放置在底部 */
+  left: 0;
+  width: 200%; /* 为了使波浪效果更明显 */
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    transparent 20%,
+    rgba(0, 0, 255, 0.5) 50%,
+    transparent 80%
+  );
+  border-radius: 50%;
+  animation: wave 4s infinite linear; /* 动画效果 */
+}
+
+@keyframes wave {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%); /* 动画移动 */
+  }
+}
+
+.bg-other-image {
+  position: relative; /* 使伪元素定位相对于这个元素 */
+  overflow: hidden; /* 确保伪元素不会超出容器 */
+}
+
+.bg-other-image::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('/bizhi.png'); /* 背景图片 */
+  background-size: cover; /* 确保背景图覆盖整个区域 */
+  background-position: center; /* 背景图居中 */
+  background-repeat: no-repeat; /* 不重复背景图 */
+  opacity: 0.5; /* 设置透明度，0 为完全透明，1 为完全不透明 */
+  z-index: 0; /* 确保伪元素在最底层 */
+  background-attachment: fixed; /* 固定背景图 */
+}
+
+.main-content {
+  position: relative; /* 确保主要内容在伪元素之上 */
+  z-index: 1; /* 设置较高的 z-index，确保内容可见 */
 }
 </style>
