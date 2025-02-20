@@ -17,7 +17,7 @@
     <p class="mt-2 text-gray-600 text-center">{{ description }}</p>
 
     <a
-      href="https://github.com/oclcph/profile"
+      href="https://github.com/oclcph"
       target="_blank"
       rel="noopener noreferrer"
       class="flex items-center mt-4 text-gray-600 hover:text-gray-800"
@@ -35,7 +35,7 @@
     <!-- 模态框 -->
     <div
       v-if="isModalOpen"
-      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
       @click="closeModal"
     >
       <img
@@ -54,7 +54,7 @@ import { useRouter } from 'vue-router';
 
 const avatarUrl = './cl.jpg'; // 头像路径
 const name = 'ocphl';
-const description = '相关信息描述';
+const description = '我行其野，芃芃其麦';
 const isModalOpen = ref(false);
 const router = useRouter();
 
@@ -74,13 +74,20 @@ const routerToAbout = () => {
 <style scoped>
 /* 如果需要自定义样式，可以在这里添加 */
 .link {
-  color: #6b7280; /* 灰色 */
+  color: #ffffff; /* 更改为白色 */
   padding: 10px 50px; /* 添加内边距 */
   border-radius: 4px; /* 圆角 */
-  transition: background-color 0.3s; /* 添加过渡效果 */
+  transition:
+    background-color 0.3s,
+    color 0.3s; /* 添加过渡效果 */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* 添加文本阴影 */
 }
 
 .link:hover {
-  background-color: rgba(107, 114, 128, 0.2); /* 悬停时背景加深 */
+  background-color: rgba(107, 114, 128, 0.5); /* 悬停时背景加深 */
+  color: #ffffff; /* 确保悬停时文本颜色保持白色 */
+}
+.height {
+  z-index: 101;
 }
 </style>

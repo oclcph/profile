@@ -22,6 +22,9 @@ export default {
       '/profile/background/bg3.jpg',
       '/profile/background/bg4.jpg',
       '/profile/background/bg5.jpg',
+      '/profile/background/bg6.jpg',
+      '/profile/background/bg7.jpg',
+      '/profile/background/bg8.jpg',
     ];
     const currentBackground = ref(backgrounds[0]);
 
@@ -59,7 +62,7 @@ export default {
   transition:
     background-image 1s ease-in-out,
     opacity 1s ease-in-out; /* 增加透明度过渡 */
-  opacity: 0.8; /* 设置透明度，0完全透明，1完全不透明 */
+  opacity: 1; /* 设置透明度，0完全透明，1完全不透明 */
 }
 
 /* 定义背景图片放大动画 */

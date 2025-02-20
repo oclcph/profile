@@ -50,6 +50,6 @@ const breadcrumbs = computed(() => {
 /* 可选样式调整 */
 nav {
   font-size: 0.875rem;
-  z-index: 100;
+  z-index: 2;
 }
 </style>

@@ -1,5 +1,7 @@
 <template>
-  <h2 class="p-4 text-gray-400 text-center text-lg font-semibold mb-4">
+  <h2
+    class="p-4 text-white text-center text-lg font-semibold mb-4 bg-gray-800 bg-opacity-70 rounded"
+  >
     ——文章列表——
   </h2>
   <div>
@@ -10,7 +12,7 @@
         @click="navigateToArticle(file.path)"
         class="p-4 bg-white bg-opacity-80 shadow-md cursor-pointer transition-colors duration-300 hover:bg-blue-100 hover:bg-opacity-90"
       >
-        {{ file.path }}
+        {{ file.path.replace(/\.md$/, '') }}
       </li>
     </ul>
   </div>
