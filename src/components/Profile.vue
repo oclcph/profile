@@ -74,20 +74,30 @@ const routerToAbout = () => {
 <style scoped>
 /* 如果需要自定义样式，可以在这里添加 */
 .link {
-  color: #ffffff; /* 更改为白色 */
-  padding: 10px 50px; /* 添加内边距 */
-  border-radius: 4px; /* 圆角 */
+  color: #000000;
+  padding: 10px 50px;
+  border-radius: 4px;
   transition:
     background-color 0.3s,
-    color 0.3s; /* 添加过渡效果 */
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* 添加文本阴影 */
+    color 0.3s;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .link:hover {
-  background-color: rgba(107, 114, 128, 0.5); /* 悬停时背景加深 */
-  color: #ffffff; /* 确保悬停时文本颜色保持白色 */
+  background-color: rgba(107, 114, 128, 0.5);
+  color: #ffffff;
+  animation: pulse 0.5s infinite; /* 添加脉冲动画 */
 }
-.height {
-  z-index: 101;
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 </style>

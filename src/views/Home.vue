@@ -12,7 +12,14 @@
         @click="navigateToArticle(file.path)"
         class="p-4 bg-white bg-opacity-80 shadow-md cursor-pointer transition-colors duration-300 hover:bg-blue-100 hover:bg-opacity-90"
       >
-        {{ file.path.replace(/\.md$/, '') }}
+        <div class="text-lg font-bold">
+          <!-- 增加文件路径的字体大小和加粗 -->
+          {{ file.path.replace(/\.md$/, '') }}
+        </div>
+        <div class="text-gray-600 text-sm">
+          <!-- 设置类别的字体大小 -->
+          {{ file.category }}
+        </div>
       </li>
     </ul>
   </div>
