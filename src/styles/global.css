@@ -16,6 +16,12 @@
   margin-bottom: 8px;
 }
 
+.markdown-content h3 {
+  color: #34495e;
+  font-size: 1.2em;
+  margin-bottom: 6px;
+}
+
 .markdown-content strong {
   color: #e74c3c;
 }

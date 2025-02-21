@@ -48,10 +48,10 @@
           <li
             v-for="header in headers"
             :key="header.id"
-            :class="`cursor-pointer p-2 rounded-md hover:bg-gray-200 transition-all duration-200 ease-in-out ml-${header.level * 2}`"
+            :class="`cursor-pointer p-1 rounded-md hover:bg-gray-200 transition-all duration-200 ease-in-out ml-${header.level * 2} text-sm`"
             @click="scrollToSection(header.id)"
           >
-            {{ header.title }}
+            <span v-html="processTitle(header.title)"></span>
           </li>
         </ul>
       </div>
@@ -129,6 +129,13 @@ const scrollToSection = (id: string) => {
     section.scrollIntoView({ behavior: 'smooth' });
   }
 };
+
+const processTitle = (title: string) => {
+  // 替换掉被 `==` 包围的部分，或者为其应用不同的样式
+  const regex = /==([^=]+)==/g; // 匹配被 `==` 包围的文本
+  return title.replace(regex, '<mark>$1</mark>');
+};
+
 onMounted(() => {
   window.addEventListener('scroll', handleScroll);
 });

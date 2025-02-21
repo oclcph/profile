@@ -95,7 +95,8 @@ function processPara(text: string): string {
 }
 
 function processText(text: string): string {
-  const withInlineFormulas = processInlineFormulas(text);
+  const withBlockFormulas = processBlockFormulas(text);
+  const withInlineFormulas = processInlineFormulas(withBlockFormulas);
   const withBold = processBold(withInlineFormulas);
   const withItalic = processItalic(withBold);
   const withInlineCode = processCode(withItalic);
@@ -154,6 +155,7 @@ function generateClickableTableOfContents(
 watchEffect(() => {
   const cleanedContent = props.content.replace(/^---\s*\n(.*?)\n---\s*\n/s, '');
   headers.value = generateClickableTableOfContents(cleanedContent);
+  console.log(headers.value);
   emit('update-headers', headers.value);
   renderedMarkdown.value = marked(cleanedContent, { renderer }) as string; // 渲染 Markdown 为 HTML
   // console.log(renderedMarkdown.value, cleanedContent);
