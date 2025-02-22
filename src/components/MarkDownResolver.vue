@@ -18,7 +18,7 @@ const props = defineProps<{
 
 const renderedMarkdown = ref<string>('');
 const renderer = new marked.Renderer();
-const emit = defineEmits(['load-complete', 'update-headers']);
+const emit = defineEmits(['load-complete', 'updateHeaders']);
 
 const headers = ref<{ level: number; title: string; id: string }[]>([]);
 
@@ -156,7 +156,7 @@ watchEffect(() => {
   const cleanedContent = props.content.replace(/^---\s*\n(.*?)\n---\s*\n/s, '');
   headers.value = generateClickableTableOfContents(cleanedContent);
   console.log(headers.value);
-  emit('update-headers', headers.value);
+  emit('updateHeaders', headers.value);
   renderedMarkdown.value = marked(cleanedContent, { renderer }) as string; // 渲染 Markdown 为 HTML
   // console.log(renderedMarkdown.value, cleanedContent);
   emit('load-complete');

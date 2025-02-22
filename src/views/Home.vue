@@ -14,7 +14,7 @@
       >
         <div class="text-lg font-bold">
           <!-- 增加文件路径的字体大小和加粗 -->
-          {{ file.path.replace(/\.md$/, '') }}
+          {{ file.title }}
         </div>
         <div class="text-gray-600 text-sm">
           <!-- 设置类别的字体大小 -->

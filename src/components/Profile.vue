@@ -33,7 +33,11 @@
     </div>
 
     <!-- 目录（TOC） -->
-    <div v-if="showTOC && headers.length > 0" ref="tocContainer" class="mt-6">
+    <div
+      v-if="showTOC && headers.length > 0"
+      ref="tocContainer"
+      class="w-full mt-6"
+    >
       <div
         :class="{ 'fixed w-64': isSticky }"
         :style="{ top: topOffset }"
@@ -42,10 +46,15 @@
         <h2 class="text-lg font-bold mb-2">📌 目录</h2>
         <ul class="space-y-2">
           <li
-            v-for="header in headers"
+            v-for="header in newHeaders"
             :key="header.id"
-            :class="`cursor-pointer p-1 rounded-md hover:bg-gray-200 transition-all duration-200 ease-in-out ml-${header.level * 2} text-sm`"
-            @click="scrollToSection(header.id)"
+            :class="`cursor-pointer p-1 rounded-md hover:bg-gray-200 transition-all duration-200 ease-in-out ml-${header.level * 2} ${getFontSizeClass(header.level)}`"
+            @click="
+              () => {
+                scrollToSection(header.id);
+                toggle(header.id);
+              }
+            "
           >
             <span v-html="processTitle(header.title)"></span>
           </li>
@@ -70,7 +79,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, onMounted, onUnmounted, computed } from 'vue';
 import { useRouter } from 'vue-router';
 
 const avatarUrl = './cl.jpg'; // 头像路径
@@ -91,7 +100,7 @@ const routerToAbout = () => {
   router.push('/about');
 };
 
-defineProps<{
+let props = defineProps<{
   headers: { id: string; title: string; level: number }[];
   showTOC: boolean;
 }>();
@@ -100,6 +109,9 @@ const tocContainer = ref<HTMLElement | null>(null);
 const isSticky = ref(false);
 let lastScrollY = window.scrollY; // 记录上一次滚动位置
 const topOffset = ref('42px'); // 记录目录的 `top` 位置
+const headers = computed(() => {
+  return props.headers;
+});
 
 const handleScroll = () => {
   if (!tocContainer.value) return;
@@ -132,6 +144,79 @@ const processTitle = (title: string) => {
   return title.replace(regex, '<mark>$1</mark>');
 };
 
+function getFontSizeClass(level: number): string {
+  switch (level) {
+    case 1:
+      return 'text-lg'; // Level 1 字体大小
+    case 2:
+      return 'text-base'; // Level 2 字体大小
+    case 3:
+      return 'text-sm'; // Level 3 字体大小
+    default:
+      return 'text-xs'; // 默认字体大小
+  }
+}
+
+const expandedSections = ref<Set<string>>(new Set());
+const ableToShow = ref<Set<string>>(new Set());
+
+const getNextLevelHeaders = (
+  headers: { id: string; title: string; level: number }[],
+  currentLevel: number,
+  id: string
+): { id: string; title: string; level: number }[] => {
+  const nextLevelHeaders: { id: string; title: string; level: number }[] = [];
+  let i = 0;
+
+  while (i < headers.length) {
+    // 找到当前级别的目录
+    if (headers[i].level === currentLevel && headers[i].id === id) {
+      break;
+    }
+    i++;
+  }
+
+  // 从当前目录的下一个开始查找
+  let j = i + 1;
+  while (j < headers.length && headers[j].level > currentLevel) {
+    // 找到直接下一级目录
+    if (headers[j].level === currentLevel + 1) {
+      nextLevelHeaders.push(headers[j]);
+    }
+    j++;
+  }
+
+  return nextLevelHeaders;
+};
+
+const toggle = (id: string) => {
+  const currentLevel = headers.value.find((h) => h.id === id)?.level;
+  if (currentLevel) {
+    const nextLevelHeaders = getNextLevelHeaders(
+      headers.value,
+      currentLevel,
+      id
+    );
+
+    // 切换当前章节的下一级目录的展开状态
+    if (expandedSections.value.has(id)) {
+      nextLevelHeaders.forEach((h) => ableToShow.value.delete(h.id)); // 收起下一级目录
+      expandedSections.value.delete(id);
+    } else {
+      nextLevelHeaders.forEach((h) => ableToShow.value.add(h.id)); // 展开下一级目录
+      expandedSections.value.add(id);
+    }
+  }
+};
+const isShown = (id: string) => {
+  return ableToShow.value.has(id);
+};
+
+const newHeaders = computed(() => {
+  return headers.value.filter(
+    (h) => isShown(h.id) || h.id === headers.value[0].id
+  );
+});
 onMounted(() => {
   window.addEventListener('scroll', handleScroll);
 });
