@@ -33,11 +33,7 @@
     </div>
 
     <!-- 目录（TOC） -->
-    <div
-      v-if="showTOC && headers.length > 0"
-      ref="tocContainer"
-      class="w-full mt-6"
-    >
+    <div v-if="showTOC && headers.length > 0" ref="tocContainer" class="mt-6">
       <div
         :class="{ 'fixed w-64': isSticky }"
         :style="{ top: topOffset }"
