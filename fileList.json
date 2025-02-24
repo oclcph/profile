@@ -5,105 +5,126 @@
       "title": "磁盘冗余阵列",
       "abstract": "计组第十章笔记",
       "category": "计算机组成原理",
-      "modified_time": "2025-02-22 13:46:16"
+      "modified_time": "2025-02-24 13:39:20"
     },
     {
       "path": "十六、IO.md",
       "title": "I/O系统",
       "abstract": "计组第十六章笔记",
       "category": "计算机组成原理",
-      "modified_time": "2025-02-22 13:46:16"
+      "modified_time": "2025-02-24 13:39:20"
     },
     {
       "path": "AI.md",
       "title": "复习",
       "abstract": "机器学习知识点整理，非常不全",
       "category": "机器学习",
-      "modified_time": "2025-02-22 13:46:16"
+      "modified_time": "2025-02-24 13:39:20"
     },
     {
       "path": "三、数据的机器级表示.md",
       "title": "数据的机器级表示与校验码",
       "abstract": "计组第三、四章笔记",
       "category": "计算机组成原理",
-      "modified_time": "2025-02-22 13:46:16"
+      "modified_time": "2025-02-24 13:39:20"
+    },
+    {
+      "path": "Segmenter Transformer for Semantic Segmentation.md",
+      "title": "12.3 (3)",
+      "abstract": "Segmenter：用于语义分割的 Transformer",
+      "category": "论文阅读",
+      "modified_time": "2025-02-24 13:39:20"
     },
     {
       "path": "Review.md",
       "title": "复习",
       "abstract": "计组知识点整理，包含习题",
       "category": "计算机组成原理",
-      "modified_time": "2025-02-22 13:46:16"
+      "modified_time": "2025-02-24 13:39:20"
     },
     {
       "path": "五、整数运算.md",
       "title": "整数运算与浮点数运算",
       "abstract": "计组第五、六章笔记",
       "category": "计算机组成原理",
-      "modified_time": "2025-02-22 13:46:16"
+      "modified_time": "2025-02-24 13:39:20"
     },
     {
       "path": "九、外存.md",
       "title": "磁盘等",
       "abstract": "计组第九章笔记",
       "category": "计算机组成原理",
-      "modified_time": "2025-02-22 13:46:16"
+      "modified_time": "2025-02-24 13:39:20"
     },
     {
       "path": "十五、总线.md",
       "title": "总线",
       "abstract": "计组第十五章笔记",
       "category": "计算机组成原理",
-      "modified_time": "2025-02-22 13:46:16"
+      "modified_time": "2025-02-24 13:39:20"
     },
     {
       "path": "七、内部存储器.md",
       "title": "内存",
       "abstract": "计组第七章笔记",
       "category": "计算机组成原理",
-      "modified_time": "2025-02-22 13:46:16"
+      "modified_time": "2025-02-24 13:39:20"
     },
     {
       "path": "十三、指令周期与流水线.md",
       "title": "指令周期与流水线",
       "abstract": "计组第十三章笔记",
       "category": "计算机组成原理",
-      "modified_time": "2025-02-22 13:46:16"
+      "modified_time": "2025-02-24 13:39:20"
+    },
+    {
+      "path": "Deep Learning-Enabled Semantic Communication Systems With Task-Unaware Transmitter and Dynamic Data.md",
+      "title": "12.3 (2)",
+      "abstract": "具有任务无意识发射器和动态数据的深度学习语义通信系统",
+      "category": "论文阅读",
+      "modified_time": "2025-02-24 13:39:20"
     },
     {
       "path": "十四、控制器.md",
       "title": "控制器",
       "abstract": "计组第十四章笔记",
       "category": "计算机组成原理",
-      "modified_time": "2025-02-22 13:46:16"
+      "modified_time": "2025-02-24 13:39:20"
     },
     {
       "path": "一、计算机系统概述.md",
       "title": "计算机系统概述与计算机顶层视图",
       "abstract": "计组第一、二章笔记",
       "category": "计算机组成原理",
-      "modified_time": "2025-02-22 13:46:16"
+      "modified_time": "2025-02-24 13:39:20"
+    },
+    {
+      "path": "Deep Learning Enabled Semantic Communication Systems.md",
+      "title": "12.3 (1)",
+      "abstract": "深度学习引导的语义通信系统",
+      "category": "论文阅读",
+      "modified_time": "2025-02-24 13:39:20"
     },
     {
       "path": "八、缓存.md",
       "title": "缓存（cache）",
       "abstract": "计组第八章笔记",
       "category": "计算机组成原理",
-      "modified_time": "2025-02-22 13:46:16"
+      "modified_time": "2025-02-24 13:39:20"
     },
     {
       "path": "十一、虚存.md",
       "title": "虚存",
       "abstract": "计组第十一章笔记",
       "category": "计算机组成原理",
-      "modified_time": "2025-02-22 13:46:16"
+      "modified_time": "2025-02-24 13:39:20"
     },
     {
       "path": "十二、指令系统.md",
       "title": "指令系统",
       "abstract": "计组第十二章笔记",
       "category": "计算机组成原理",
-      "modified_time": "2025-02-22 13:46:16"
+      "modified_time": "2025-02-24 13:39:20"
     }
   ]
 }
