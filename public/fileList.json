@@ -8,11 +8,32 @@
       "modified_time": "2025-01-11 15:47:34"
     },
     {
+      "path": "Deep Learning Enabled Semantic Communication Systems.md",
+      "title": "12.3 (1)",
+      "abstract": "深度学习引导的语义通信系统",
+      "category": "论文阅读",
+      "modified_time": "2025-02-24 08:15:15"
+    },
+    {
+      "path": "Deep Learning-Enabled Semantic Communication Systems With Task-Unaware Transmitter and Dynamic Data.md",
+      "title": "12.3 (2)",
+      "abstract": "具有任务无意识发射器和动态数据的深度学习语义通信系统",
+      "category": "论文阅读",
+      "modified_time": "2025-02-24 08:16:19"
+    },
+    {
       "path": "Review.md",
       "title": "复习",
       "abstract": "计组知识点整理，包含习题",
       "category": "计算机组成原理",
       "modified_time": "2025-02-22 07:47:56"
+    },
+    {
+      "path": "Segmenter Transformer for Semantic Segmentation.md",
+      "title": "12.3 (3)",
+      "abstract": "Segmenter：用于语义分割的 Transformer",
+      "category": "论文阅读",
+      "modified_time": "2025-02-24 08:16:19"
     },
     {
       "path": "一、计算机系统概述.md",

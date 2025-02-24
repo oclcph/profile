@@ -19,7 +19,7 @@ const fetchContent = async () => {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
   markdownContent.value = await response.text();
-  console.log('Markdown content:', markdownContent.value); // 调试输出
+  // console.log('Markdown content:', markdownContent.value); // 调试输出
 };
 
 onMounted(async () => {

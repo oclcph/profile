@@ -77,9 +77,18 @@ function processBlockFormulas(content: string): string {
   });
 }
 
+// 处理链接
+function processLinks(text: string): string {
+  return text.replace(
+    /\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g,
+    `<a href="$2" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">$1</a>`
+  );
+}
+
 function processPara(text: string): string {
+  const withHref = processLinks(text);
   // 先处理块级公式
-  const withBlockFormulas = processBlockFormulas(text);
+  const withBlockFormulas = processBlockFormulas(withHref);
   // 再处理行内公式
   const withInlineFormulas = processInlineFormulas(withBlockFormulas);
   // 在处理段内黑体
@@ -133,6 +142,10 @@ renderer.code = ({ text, lang, escaped }) => {
   return `<pre><code class="hljs ${validLanguage}">${highlighted}</code></pre>`;
 };
 
+renderer.link = ({ href, title, text }) => {
+  return `<a href="${href}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">${text}</a>`;
+};
+
 // 生成目录
 function generateClickableTableOfContents(
   text: string
@@ -155,10 +168,9 @@ function generateClickableTableOfContents(
 watchEffect(() => {
   const cleanedContent = props.content.replace(/^---\s*\n(.*?)\n---\s*\n/s, '');
   headers.value = generateClickableTableOfContents(cleanedContent);
-  console.log(headers.value);
   emit('updateHeaders', headers.value);
   renderedMarkdown.value = marked(cleanedContent, { renderer }) as string; // 渲染 Markdown 为 HTML
-  // console.log(renderedMarkdown.value, cleanedContent);
+  console.log(renderedMarkdown.value);
   emit('load-complete');
 });
 </script>
