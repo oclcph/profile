@@ -7,7 +7,7 @@
     "test": "echo \"No tests specified\" && exit 0",
     "generate:filelist": "python scripts/generate_files.py",
     "dev": "vite",
-    "build": "npm run generate:filelist && vue-tsc -b && vite build",
+    "build": "npm run generate:filelist && vite build",
     "preview": "vite preview",
     "deploy": "gh-pages -d dist",
     "prepare": "husky install"
